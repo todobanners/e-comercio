@@ -140,6 +140,7 @@
 		  auth2 = gapi.auth2.init({
 		     client_id: '398768042483-utsd1pdv0c5gisup59i7hl34vlp504h7.apps.googleusercontent.com', // ID de cliente
 		    cookiepolicy: 'single_host_origin',
+        ux_mode: 'redirect',
 		     alcance: 'perfil' // Puede solicitar datos distintos del 'perfil' y 'correo electrónico' predeterminados
 		  });
 		  attachSignin(document.getElementById('customBtn'));
