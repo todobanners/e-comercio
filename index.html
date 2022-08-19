@@ -5,13 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-  
+
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <!-- <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="398768042483-utsd1pdv0c5gisup59i7hl34vlp504h7.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script> -->
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -63,6 +60,7 @@
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
     }
+
     body {
       display: flex;
       align-items: center;
@@ -91,11 +89,12 @@
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
-    footer{
-      position:absolute;
-      bottom:0;
-      left:0;
-      width:100%;
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
   </style>
 </head>
@@ -105,105 +104,34 @@
     <form action="" id="login">
       <img class="mb-4" src="img/login.png" alt="" width="300" height="150">
       <h1 class="h3 mb-3 fw-normal">Ingreso</h1>
-  <p id="alertuser"></p>
+      <p id="alertuser"></p>
       <div class="form-floating">
         <input type="text" class="form-control" id="usuario" placeholder="usuario" name="user">
-        <label for="usuario">Usuario</label> 
+        <label for="usuario">Usuario</label>
 
       </div>
       <div class="form-floating">
         <input type="password" class="form-control" id="pass" placeholder="Password" name="contra">
         <label for="pass">Contraseña</label>
       </div>
-  
+
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Recordarme
         </label>
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-    </br>
-    <br>
-      
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-         data-client_id="398768042483-utsd1pdv0c5gisup59i7hl34vlp504h7.apps.googleusercontent.com"
-         data-ux_mode="redirect"
-         data-login_uri="https://todobanners.github.io/e-comercio/home.html">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
-  </body>
+      </br>
+      <br>
 
-    <!-- <button id = "customBtn" type = "button"> inicio de sesión de Google </button>
-<div id="name"></div>
-<button type="button" onclick="signOut();">Sign out</button>
-  
-<script src="https://apis.google.com/js/api:client.js"></script>
-<script>
-	var googleUser = {};
-	var startApp = function() {
-		gapi.load('auth2', function(){
-		  // Retrieve the singleton for the GoogleAuth library and set up the client.
-		  auth2 = gapi.auth2.init({
-		     client_id: '398768042483-utsd1pdv0c5gisup59i7hl34vlp504h7.apps.googleusercontent.com', // ID de cliente
-		    cookiepolicy: 'single_host_origin',
-        ux_mode: 'redirect',
-        plugin_name: 'Algo',
-		     alcance: 'perfil' // Puede solicitar datos distintos del 'perfil' y 'correo electrónico' predeterminados
-		  });
-		  attachSignin(document.getElementById('customBtn'));
-		});
-	};
- 
-	function attachSignin(element) {
-		auth2.attachClickHandler(element, {},
-	    function(googleUser) {
-	      document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
-		var profile = auth2.currentUser.get().getBasicProfile();
-		console.log('ID: ' + profile.getId());
-		console.log('Full Name: ' + profile.getName());
-		console.log('Given Name: ' + profile.getGivenName());
-		console.log('Family Name: ' + profile.getFamilyName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
-	    }, function(error) {
-	      console.log(JSON.stringify(error, undefined, 2));
-	    });
-	}
-	startApp();
- 
-	 //Cerrar sesión
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
-			 alert ('El cierre de sesión del usuario es exitoso');
-		});
-	}
-</script> -->
-
-
-
-      <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-      <script>
-        function onSignIn(googleUser) {
-          // Useful data for your client-side scripts:
-          var profile = googleUser.getBasicProfile();
-          console.log("Ingresado?" + GoogleUser.isSignedIn());
-          console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-          console.log('Full Name: ' + profile.getName());
-          console.log('Given Name: ' + profile.getGivenName());
-          console.log('Family Name: ' + profile.getFamilyName());
-          console.log("Image URL: " + profile.getImageUrl());
-          console.log("Email: " + profile.getEmail());
-  
-          // The ID token you need to pass to your backend:
-          var id_token = googleUser.getAuthResponse().id_token;
-          console.log("ID Token: " + id_token);
-        }
-      </script> -->
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
+      <div id="g_id_onload" data-client_id="398768042483-utsd1pdv0c5gisup59i7hl34vlp504h7.apps.googleusercontent.com"
+        data-ux_mode="redirect" data-login_uri="https://todobanners.github.io/e-comercio/home.html">
+      </div>
+      <div class="g_id_signin" data-type="standard"></div>
       <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </form>
-    
+
   </main>
   <footer>
     <div class="container">
