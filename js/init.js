@@ -41,8 +41,8 @@ let getJSONData = function(url){
 }
 
 if (localStorage.getItem('usuario') != null) {
-  document.querySelector('ul li:last-child').innerHTML = `<a href=""><img src="img/img_perfil.png" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
+  document.querySelector('ul li:last-child').innerHTML = `<a href="" class="nav-link"><img src="img/img_perfil.png" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
 } else {
-  document.querySelector('ul li:last-child').innerHTML = `<a href="/login.html"><img src="img/img_perfil.png" alt="" width="30" height="30">Ingresar</a>`;
+  window.location.href = "login.html";
 }
 
