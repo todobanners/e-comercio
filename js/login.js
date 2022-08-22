@@ -9,8 +9,8 @@ document.getElementById('login').addEventListener('submit', evento => {
         evento.preventDefault();
         //Guardo en localStorage los datos del usuario
         localStorage.setItem("usuario", user.value)
-        //Redirijo a la pagina de home
-        window.location.href = "home.html";
+        //Redirijo a la pagina de index
+        window.location.href = "index.html";
     } else {
         //Aviso al usuario que no estan completos los campos de ingreso
         document.getElementById("alertuser").innerHTML = `Necesita colocar algun valor en los dos campos`;
