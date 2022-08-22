@@ -1,4 +1,6 @@
+//Obtengo numero de categoria del localstorage
 let numCategory = localStorage.getItem("catID");
+// Si no tuviera localstorage asignado un catid lo redirijo a la apgina de categorias
 if (numCategory == null){
     let tID = setTimeout(function () {
         window.location.href = "/categories.html";
@@ -8,11 +10,14 @@ if (numCategory == null){
     document.getElementById("textoP").innerHTML = `No ha seleccionado una categoría, será redirigido a la lista de <a href="/categories.html">categorias</a>`;
 }
 
+// Formo la URL con la categoria para hacer el JSON
 const URL_PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/" + numCategory + ".json";
 
+//Muestro los productos
 function showProducts() {
     let htmlContentToAppend = "";
     fetch(URL_PRODUCTS).then(resp => resp.json()).then(data => {
+
         for (const product of data.products){
             htmlContentToAppend += `
              <div class="list-group-item list-group-item-action cursor-active">
