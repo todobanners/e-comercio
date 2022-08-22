@@ -7,7 +7,9 @@ document.getElementById('login').addEventListener('submit', evento => {
 //Realizo comprobacion de si tiene mas de 0 caracteres introduciodos o no
     if (user.value.length > 0 && contra.value.length > 0) {
         evento.preventDefault();
-        //Redirijo a la apgina de home
+        //Guardo en localStorage los datos del usuario
+        localStorage.setItem("usuario", user.value)
+        //Redirijo a la pagina de home
         window.location.href = "home.html";
     } else {
         //Aviso al usuario que no estan completos los campos de ingreso

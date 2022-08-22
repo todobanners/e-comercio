@@ -39,3 +39,10 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+if (localStorage.getItem('usuario') != null) {
+  document.querySelector('ul li:last-child').innerHTML = `<a href=""><img src="img/img_perfil.png" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
+} else {
+  document.querySelector('ul li:last-child').innerHTML = `<a href="/login.html"><img src="img/img_perfil.png" alt="" width="30" height="30">Ingresar</a>`;
+}
+
