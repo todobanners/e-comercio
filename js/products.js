@@ -11,12 +11,13 @@ if (numCategory == null) {
 }
 
 // Formo la URL con la categoria para hacer el JSON
-const URL_PRODUCTS = "https://japceibal.github.io/emercado-api/cats_products/" + numCategory + ".json";
+const URL_PRODUCTS = PRODUCTS_URL + numCategory + EXT_TYPE;
 
 
 const ORDER_ASC_BY_COST = "0A1";
 const ORDER_DESC_BY_COST = "1A0";
 const ORDER_BY_SOLDCOUNT = "Rel.";
+const BUSCADOR = "busqueda";
 let currentCategoriesArray = [];
 let currentSortCriteria = undefined;
 let minCount = undefined;
@@ -49,7 +50,6 @@ function sortProducts(criteria, array) {
 
     return result;
 }
-
 
 //Muestro los productos
 function showProducts() {
@@ -98,9 +98,9 @@ function sortAndShowProducts(sortCriteria, productsArray) {
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(URL_PRODUCTS).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            currentCategoriesArray = resultObj.data.products
-            nombreCategoria = resultObj.data.catName
-            showProducts()
+            currentCategoriesArray = resultObj.data.products;
+            nombreCategoria = resultObj.data.catName;
+            showProducts();
             //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
