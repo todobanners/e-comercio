@@ -61,22 +61,19 @@ function showProducts() {
     for (const product of arrayProductos) {
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
-            htmlContentToAppend += `
-             <div class="list-group-item list-group-item-action cursor-active">
-                 <div class="row">
-                     <div class="col-3">
-                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
-                     </div>
-                     <div class="col">
-                         <div class="d-flex w-100 justify-content-between">
-                             <h4 class="mb-1">${product.name} - ${product.currency} ${product.cost}</h4>
-                             <small class="text-muted">${product.soldCount} artículos</small>
-                         </div>
-                         <p class="mb-1">${product.description}</p>
-                     </div>
-                 </div>
-             </div>
-             `
+            htmlContentToAppend += `<div class="col">
+                                        <div class="card h-100">
+                                        <div class="card-header"><h5 class="card-title">${product.name}</h5></div>
+                                        <img src="${product.image}" alt="${product.description}" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="card-text">${product.description}</p>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <h4 class="mb-1">${product.currency} ${product.cost}</h4>
+                                                <small class="text-muted">${product.soldCount} Vendidos</small>
+                                            </div>
+                                        </div>
+                                    </div> `;
         }
         document.getElementById("prod-list-container").innerHTML = htmlContentToAppend;
     }
@@ -84,6 +81,22 @@ function showProducts() {
     document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
 
 }
+
+{/* <div class="col">
+                 <div class="row">
+                     <div class="col-3">
+                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
+                     </div>
+                     <div class="col">
+                         <div class="d-flex w-100 justify-content-between">
+                             
+                         </div>
+                         <p class="mb-1"></p>
+                     </div>
+                 </div>
+             </div> */}
+
+
 // Ordena y muestra los productos
 function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
