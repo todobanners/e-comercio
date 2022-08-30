@@ -46,11 +46,11 @@
         <div class="col text-end">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
             <input type="radio" class="btn-check" name="options" id="sortAsc">
-            <label class="btn btn-light" for="sortAsc"><i class="fas fa-sort-numeric-down mr-1"></i>$</label>
+            <label class="btn btn-dark" for="sortAsc"><i class="fas fa-sort-numeric-down mr-1"></i>$</label>
             <input type="radio" class="btn-check" name="options" id="sortDesc">
-            <label class="btn btn-light" for="sortDesc"><i class="fas fa-sort-numeric-down-alt mr-1"></i>$</label>
+            <label class="btn btn-dark" for="sortDesc"><i class="fas fa-sort-numeric-down-alt mr-1"></i>$</label>
             <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
-            <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i>Rel.</label>
+            <label class="btn btn-dark" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i>Rel.</label>
           </div>
         </div>
       </div>
@@ -61,25 +61,29 @@
               <p class="font-weight-normal text-end my-2">Precio</p>
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterPriceMin">
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterPriceMax">
             </div>
-            <div class="col-3 p-0">
+            <div class="col-3">
               <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+                <button class="btn btn-dark btn-sm" id="rangeFilterPrice">Filtrar</button>
+                <button class="btn btn-dark btn-sm" id="clearRangeFilter">Limpiar</button>
               </div>
             </div>
           </div>
         </div>
-        
+
       </div>
-      <div class="p-2"><input type="search" name="b" id="buscador" class="form-control" placeholder="Buscador"></div>
-      
+      <div class="input-group rounded pb-1">
+        <input type="search" name="b" id="buscador" class="form-control rounded" placeholder="Buscar" />
+        <span class="input-group-text border-0">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
       <div class="row">
-        <div id="cat-list-container">
+        <div id="prod-list-container">
         </div>
       </div>
     </div>
