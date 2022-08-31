@@ -20,8 +20,8 @@ const BUSCADOR = "busqueda";
 let arrayProductos = [];
 let busquedaArray = [];
 let currentSortCriteria = undefined;
-let minCount = undefined;
-let maxCount = undefined;
+let minPrice = undefined;
+let maxPrice = undefined;
 let buscando = document.getElementById("buscador");
 
 // Funcion para ordenar y/o buscar productos segun criterio
@@ -59,11 +59,11 @@ function sortProducts(criteria, array) {
 function showProducts() {
     let htmlContentToAppend = "";
     for (const product of arrayProductos) {
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
+        if (((minPrice == undefined) || (minPrice != undefined && parseInt(product.cost) >= minPrice)) &&
+            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))) {
             htmlContentToAppend += `<div class="col">
-                                        <div class="card h-100">
-                                        <div class="card-header"><h5 class="card-title">${product.name}</h5></div>
+                                        <div class="card h-100 mb-2">
+                                        <div class="card-header mb-1"><h5 class="card-title mt-2 text-center">${product.name}</h5></div>
                                         <img src="${product.image}" alt="${product.description}" class="card-img-top">
                                             <div class="card-body">
                                                 <p class="card-text">${product.description}</p>
@@ -81,21 +81,6 @@ function showProducts() {
     document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
 
 }
-
-{/* <div class="col">
-                 <div class="row">
-                     <div class="col-3">
-                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
-                     </div>
-                     <div class="col">
-                         <div class="d-flex w-100 justify-content-between">
-                             
-                         </div>
-                         <p class="mb-1"></p>
-                     </div>
-                 </div>
-             </div> */}
-
 
 // Ordena y muestra los productos
 function sortAndShowProducts(sortCriteria, productsArray) {
@@ -159,28 +144,29 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("clearRangeFilter").addEventListener("click", function () {
         document.getElementById("rangeFilterPriceMin").value = "";
         document.getElementById("rangeFilterPriceMax").value = "";
-        minCount = undefined;
-        maxCount = undefined;
+        minPrice = undefined;
+        maxPrice = undefined;
+        showProducts();
     });
 
     document.getElementById("rangeFilterPrice").addEventListener("click", function () {
         //Obtengo el mínimo y máximo de los intervalos para filtrar por precio
         //de productos de la categoria seleccionada
-        minCount = document.getElementById("rangeFilterPriceMin").value;
-        maxCount = document.getElementById("rangeFilterPriceMax").value;
+        minPrice = document.getElementById("rangeFilterPriceMin").value;
+        maxPrice = document.getElementById("rangeFilterPriceMax").value;
 
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0) {
-            minCount = parseInt(minCount);
+        if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0) {
+            minPrice = parseInt(minPrice);
         }
         else {
-            minCount = undefined;
+            minPrice = undefined;
         }
 
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0) {
-            maxCount = parseInt(maxCount);
+        if ((maxPrice != undefined) && (maxPrice != "") && (parseInt(maxPrice)) >= 0) {
+            maxPrice = parseInt(maxPrice);
         }
         else {
-            maxCount = undefined;
+            maxPrice = undefined;
         }
 
         showProducts();
