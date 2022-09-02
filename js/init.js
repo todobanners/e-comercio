@@ -48,7 +48,7 @@ if (localStorage.getItem('usuario') != null) {
     imagen = localStorage.getItem('imagen');
    
   }
-  document.querySelector('ul li:last-child').innerHTML = `<a href="" class="nav-link"><img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
+  document.querySelector('ul li:last-child').innerHTML = `<a href="" id="nombreUsuario" class="nav-link"><img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
 } else {
   window.location.href = "login.html";
 }
