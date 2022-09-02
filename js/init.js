@@ -42,7 +42,13 @@ let getJSONData = function(url){
 
 // Si tengo guardado un usuario en localstorage muestro el nombre arriba, sino lo redirijo al login
 if (localStorage.getItem('usuario') != null) {
-  document.querySelector('ul li:last-child').innerHTML = `<a href="" class="nav-link"><img src="${localStorage.getItem('imagen')}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
+  if (localStorage.getItem('imagen') == null) {
+    imagen = 'img/img_perfil.png';
+  } else {
+    imagen = localStorage.getItem('imagen');
+   
+  }
+  document.querySelector('ul li:last-child').innerHTML = `<a href="" class="nav-link"><img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
 } else {
   window.location.href = "login.html";
 }
