@@ -144,6 +144,7 @@
      <p>Tu correo es ${responsePayload.email}</p><p>Ya puedes ingresar al sitio</p>`;
      document.getElementById("usuario").value = responsePayload.email;
      document.getElementById("pass").value = responsePayload.sub;
+     localStorage.setItem("imagen", responsePayload.picture);
   }
 </script>
       <div class="g_id_signin" data-type="standard" data-width="300"></div>
