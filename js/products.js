@@ -78,8 +78,6 @@ function showProducts() {
         document.getElementById("prod-list-container").innerHTML = htmlContentToAppend;
     }
 
-    document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
-
 }
 
 // Ordena y muestra los productos
@@ -120,9 +118,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
             nombreCategoria = resultObj.data.catName;
             // Muestro los productos
             showProducts();
-        }
-    });
+        };
 
+    });
+    //Muestro el nombre d ela categoria que se esta visualizando
+    document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
     // Capturo el evento input del buscador para hacer la busqueda en tiempo real
     document.getElementById("buscador").addEventListener("input", function () {
         // le paso al buscador el array destinado
