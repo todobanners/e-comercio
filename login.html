@@ -140,7 +140,7 @@
      console.log("Image URL: " + responsePayload.picture);
      console.log("Email: " + responsePayload.email);
      document.getElementById("datosgoogle").innerHTML = `<h3>Bienvenido ${responsePayload.name}</h3>
-    <img src="${responsePayload.picture}">
+        <img src="${responsePayload.picture}">
      <p>Tu correo es ${responsePayload.email}</p><p>Ya puedes ingresar al sitio</p>`;
      document.getElementById("usuario").value = responsePayload.email;
      document.getElementById("pass").value = responsePayload.sub;
