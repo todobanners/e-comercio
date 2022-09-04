@@ -52,6 +52,7 @@ if (localStorage.getItem('usuario') != null) {
 } else {
   window.location.href = "login.html";
 }
+
 // LogOut
 document.getElementById("nombreUsuario").addEventListener("click", function(){
   localStorage.clear();
