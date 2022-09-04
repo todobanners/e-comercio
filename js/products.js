@@ -24,6 +24,39 @@ let minPrice = undefined;
 let maxPrice = undefined;
 let buscando = document.getElementById("buscador");
 
+//Muestro los productos
+function showProducts() {
+    //Inicio la variable vacia para colocar los productos
+    let htmlContentToAppend = "";
+    for (const product of arrayProductos) {
+        // Si el precio minimo no esta definido, ó es distinto de no definido y el valor del producto es mayor o igual al valor de precio minimo
+        // vice versa para siguiente linea pero con precio Maximo
+        // Lo anterior es el filtrado por rango de precio con ajustes para que se muestre todo si no estuvieran definidas las variables.
+        if (((minPrice == undefined) || (minPrice != undefined && parseInt(product.cost) >= minPrice)) &&
+            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))) {
+            //Muestro las terjetas con la info pedida.
+            htmlContentToAppend += `
+            <div class="col">
+                <div class="card h-100 mb-2">
+                <div class="card-header mb-1"><h5 class="card-title mt-2 text-center">${product.name}</h5></div>
+                <img src="${product.image}" alt="${product.description}" class="card-img-top">
+                    <div class="card-body">
+                        <p class="card-text">${product.description}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <h4 class="mb-1">${product.currency} ${product.cost}</h4>
+                        <small class="text-muted">${product.soldCount} Vendidos</small>
+                    </div>
+                </div>
+            </div> `;
+        }
+        //Muestro la informacion por cada iteracion del bucle for en el elemento con id prod-list-container
+        document.getElementById("prod-list-container").innerHTML = htmlContentToAppend;
+    }
+    //Muestro el nombre de la categoria que se esta visualizando
+    document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
+}
+
 // Funcion para ordenar y/o buscar productos segun criterio
 function sortProducts(criteria, array) {
     let result = [];
@@ -55,31 +88,6 @@ function sortProducts(criteria, array) {
     return result;
 }
 
-//Muestro los productos
-function showProducts() {
-    let htmlContentToAppend = "";
-    for (const product of arrayProductos) {
-        if (((minPrice == undefined) || (minPrice != undefined && parseInt(product.cost) >= minPrice)) &&
-            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))) {
-            htmlContentToAppend += `<div class="col">
-                                        <div class="card h-100 mb-2">
-                                        <div class="card-header mb-1"><h5 class="card-title mt-2 text-center">${product.name}</h5></div>
-                                        <img src="${product.image}" alt="${product.description}" class="card-img-top">
-                                            <div class="card-body">
-                                                <p class="card-text">${product.description}</p>
-                                            </div>
-                                            <div class="card-footer text-muted">
-                                                <h4 class="mb-1">${product.currency} ${product.cost}</h4>
-                                                <small class="text-muted">${product.soldCount} Vendidos</small>
-                                            </div>
-                                        </div>
-                                    </div> `;
-        }
-        document.getElementById("prod-list-container").innerHTML = htmlContentToAppend;
-    }
-
-}
-
 // Ordena y muestra los productos
 function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
@@ -103,10 +111,12 @@ function buscarTituloCategoria(palabra) {
         // porque el metodo es case sensitive.
         return producto.name.toLowerCase().indexOf(palabra.toLowerCase()) > -1 || producto.description.toLowerCase().indexOf(palabra.toLowerCase()) > -1;
     })
+    
 }
 
 // Espero a cargar el DOM
 document.addEventListener("DOMContentLoaded", function (e) {
+    
     // Llamo a la funcion en init.js para cargar el Json con los datos
     getJSONData(URL_PRODUCTS).then(function (resultObj) {
         if (resultObj.status === "ok") {
@@ -121,12 +131,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
         };
 
     });
-    //Muestro el nombre d ela categoria que se esta visualizando
-    document.getElementById("textoP").innerHTML = `Estas viendo los productos de la categoría <b>${nombreCategoria}.</b>`;
+    
     // Capturo el evento input del buscador para hacer la busqueda en tiempo real
     document.getElementById("buscador").addEventListener("input", function () {
-        // le paso al buscador el array destinado
-        sortAndShowProducts(BUSCADOR, busquedaArray);
+        sortAndShowProducts(BUSCADOR);
     });
     // Dependiendo el filtro capturo evento click y asigno el filtro
     document.getElementById("sortAsc").addEventListener("click", function () {
