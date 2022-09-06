@@ -20,7 +20,7 @@ function mostrarImagenes(){
 function mostrarInfo(){
     contenido.innerHTML = `
     <div class="p-4">
-        <h2>${datosProducto.name}</h2>
+        <h1>${datosProducto.name}</h1>
         <dt>Precio</dt>
         <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
         <dt>Descripción:</dt>
