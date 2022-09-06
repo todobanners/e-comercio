@@ -24,6 +24,13 @@ let minPrice = undefined;
 let maxPrice = undefined;
 let buscando = document.getElementById("buscador");
 
+//Guardo el id del producto donde haga click
+function setProductID(id) {
+    //guardo en LS
+    localStorage.setItem("productID", id);
+    //Redirijo a la pag de productos
+    window.location = "product-info.html";
+}
 //Muestro los productos
 function showProducts() {
     //Inicio la variable vacia para colocar los productos
@@ -36,7 +43,7 @@ function showProducts() {
             ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))) {
             //Muestro las terjetas con la info pedida.
             htmlContentToAppend += `
-            <div class="col">
+            <div class="col" onclick="setProductID(${product.id})">
                 <div class="card h-100 mb-2">
                 <div class="card-header mb-1"><h5 class="card-title mt-2 text-center">${product.name}</h5></div>
                 <img src="${product.image}" alt="${product.description}" class="card-img-top">
