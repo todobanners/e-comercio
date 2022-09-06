@@ -1,10 +1,3 @@
-//Obtengo el ID del producto seleccionado
-let productID = localStorage.getItem('productID')
-// Formo la URL para el JSON
-const URL_INFO_PRODUCTS = PRODUCT_INFO_URL + productID + EXT_TYPE;
-// Formo la URL para los comentarios
-const URL_PRODUCTS_COMMENTS = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
-
 let datosProducto = [];
 let imagenesProducto = [];
 let comentariosProducto = [];
@@ -156,7 +149,7 @@ let comentarioAEnviar = {product: parseInt(productID), score: parseInt(formRatin
 
 document.addEventListener("DOMContentLoaded", function (e) {
     //Obtengo la info del producto
-    getJSONData(URL_INFO_PRODUCTS).then(function (producto){
+    getJSONData(PRODUCT_INFO_URL).then(function (producto){
         if (producto.status === "ok") {
             datosProducto = producto.data;
             imagenesProducto = producto.data.images;
@@ -166,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 
     //Obtengo los comentarios del producto
-    getJSONData(URL_PRODUCTS_COMMENTS).then(function (comentario){
+    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (comentario){
         if (comentario.status === "ok") {
             comentariosProducto = comentario.data;
             mostrarComentarios();

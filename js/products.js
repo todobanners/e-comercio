@@ -1,5 +1,3 @@
-//Obtengo numero de categoria del localstorage
-let numCategory = localStorage.getItem("catID");
 // Si no tuviera localstorage asignado un catid lo redirijo a la pagina de categorias
 if (numCategory == null) {
     let tID = setTimeout(function () {
@@ -9,9 +7,6 @@ if (numCategory == null) {
 
     document.getElementById("textoP").innerHTML = `No ha seleccionado una categoría, será redirigido a la lista de <a href="/categories.html">categorias</a>`;
 }
-
-// Formo la URL con la categoria para hacer el JSON usando variables en init.js
-const URL_PRODUCTS = PRODUCTS_URL + numCategory + EXT_TYPE;
 // declaro variables necesarias
 const ORDER_ASC_BY_COST = "0A1";
 const ORDER_DESC_BY_COST = "1A0";
@@ -125,7 +120,7 @@ function buscarTituloCategoria(palabra) {
 document.addEventListener("DOMContentLoaded", function (e) {
     
     // Llamo a la funcion en init.js para cargar el Json con los datos
-    getJSONData(URL_PRODUCTS).then(function (resultObj) {
+    getJSONData(PRODUCTS_URL).then(function (resultObj) {
         if (resultObj.status === "ok") {
             // Se crea el array de productos
             arrayProductos = resultObj.data.products;

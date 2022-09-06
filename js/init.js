@@ -1,11 +1,15 @@
+//Obtengo el ID del producto seleccionado
+let productID = localStorage.getItem('productID');
+//Obtengo numero de categoria del localstorage
+let numCategory = localStorage.getItem("catID");
+const EXT_TYPE = ".json";
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
 const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
-const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
+const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/"+ numCategory + EXT_TYPE;
+const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/"+ productID + EXT_TYPE;
+const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/"+ productID + EXT_TYPE;
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
-const EXT_TYPE = ".json";
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
