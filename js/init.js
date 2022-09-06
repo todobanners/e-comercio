@@ -55,5 +55,5 @@ if (localStorage.getItem('usuario') != null) {
 
 // LogOut
 document.getElementById("nombreUsuario").addEventListener("click", function(){
-  localStorage.clear();
+  localStorage.removeItem("usuario")
 })
