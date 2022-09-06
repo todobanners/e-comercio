@@ -116,10 +116,13 @@ function mostrarComentarios() {
 
 function crearComentario() {
     var hoy = new Date();
-    var fechaYHora = hoy.getFullYear() + '-' + hoy.getMonth() + '-' + hoy.getDate() + ' ' + hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getMilliseconds();
+    var fechaYHora = hoy.getFullYear() + '-' + addZero(hoy.getMonth()) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
     var usuario = localStorage.getItem("usuario")
 
-    
+    function addZero(i) {
+        if (i < 10) {i = "0" + i}
+        return i;
+      }
 
     // //Guardo como un array en localstorage
     // localStorage.setItem('comentario', JSON.stringify(comentarioAEnviar));
