@@ -32,6 +32,7 @@ function mostrarInfo(){
     </div>
     `; 
 }
+//Funcion para mostrar las estrellas en los comentarios
 function mostrarRating(valor) {
     //Hago la resta entre el total de estrellas y el valor para saber cuantas estrellas vacias colocar
     let resta = 5 - valor;
@@ -42,6 +43,7 @@ function mostrarRating(valor) {
     // retorno las estrellas y muestro
     return estrellasLlenas + estrellasVacias;
 }
+
 //Obtenemos los comentarios
 function mostrarComentarios() {
     // creo un array con concat() uniendo el del localStorage y el traido por getJSONdata
