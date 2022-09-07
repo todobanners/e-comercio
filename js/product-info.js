@@ -33,10 +33,8 @@ function mostrarInfo(){
     `; 
 }
 function mostrarRating(valor) {
-    //Establezco maximo de estrellas
-    let estrellasMax = 5;
-    //Hago la resta para saber cuantas estrellas vacias colocar
-    let resta = estrellasMax - valor;
+    //Hago la resta entre el total de estrellas y el valor para saber cuantas estrellas vacias colocar
+    let resta = 5 - valor;
     //HTML para estrellas vacias y que se repita resta cantidades
     let estrellasVacias = '<span class="fa fa-star"></span>'.repeat(resta);
     //lo mismo pero para estrellas llenas y que se repita valor cantidades
@@ -71,7 +69,9 @@ function mostrarComentarios() {
 function crearComentario() {
     //Obtengo la fecha y hora de hoy y formateo segun json
     var hoy = new Date();
-    var fechaYHora = hoy.getFullYear() + '-' + addZero(hoy.getMonth()) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
+    //Para el caso de month obtiene el mes numerico del 0 al 11 lo cual hace que se obtenga algo no acorde a la realidad comun
+    //Por lo tanto se soluciona agregando +1 al valor y con padStart se le agrega un 0 a los meses con 1 digito.
+    var fechaYHora = hoy.getFullYear() + '-' + (hoy.getMonth() + 1).toString().padStart(2, 0) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
     //Guardo el user en una variable
     var usuario = localStorage.getItem("usuario")
     // funcion para formatear los elementos
