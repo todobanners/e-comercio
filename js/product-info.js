@@ -33,119 +33,61 @@ function mostrarInfo(){
     `; 
 }
 function mostrarRating(valor) {
-    
-    switch (valor) {
-        case 0:
-        return `
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`;
-        case 1:
-        return `
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`;
-        
-        case 2:
-
-            return `
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>`;
-        case 3:
-        return `
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>`;
-        
-        case 4:
-            return `
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>`;
-        
-        case 5:
-            return `
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>`;
-        
-        default:
-        return "nada"
-    }
+    //Establezco maximo de estrellas
+    let estrellasMax = 5;
+    //Hago la resta para saber cuantas estrellas vacias colocar
+    let resta = estrellasMax - valor;
+    //HTML para estrellas vacias y que se repita resta cantidades
+    let estrellasVacias = '<span class="fa fa-star"></span>'.repeat(resta);
+    //lo mismo pero para estrellas llenas y que se repita valor cantidades
+    let estrellasLlenas =  '<span class="fa fa-star checked"></span>'.repeat(valor);
+    // retorno las estrellas y muestro
+    return estrellasLlenas + estrellasVacias;
 }
 //Obtenemos los comentarios
 function mostrarComentarios() {
-    
+    // creo un array con concat() uniendo el del localStorage y el traido por getJSONdata
     let comentTotal = comentariosProducto.concat(comentariosLocal)
+    // limpio antes del for
     comentarios.innerHTML = "";
     for (const comentario of comentTotal){
+        //Muestra solo los comentarios para el ProductID actual
         if (comentario.product == productID) {
             comentarios.innerHTML += `
         <div class="card m-1">
-        <div class="card-body">
-          <h5 class="card-title"> <b>${comentario.user}</b> <i class="text-muted text-end">${comentario.dateTime}</i> </h5>
-         
-          <p class="card-text">${comentario.description}</p>
-        <p class="text-end">${mostrarRating(comentario.score)}</p> </div>
-      </div> 
+            <div class="card-body">
+                <h5 class="card-title"> <b>${comentario.user}</b> <i class="text-muted text-end">${comentario.dateTime}</i> </h5>
+                <p class="card-text">${comentario.description}</p>
+                <p class="text-end">${mostrarRating(comentario.score)}</p> 
+            </div>
+        </div> 
         `;
         }
         
     }
 }
 
+//Funcion para crear comentario
 function crearComentario() {
+    //Obtengo la fecha y hora de hoy y formateo segun json
     var hoy = new Date();
     var fechaYHora = hoy.getFullYear() + '-' + addZero(hoy.getMonth()) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
+    //Guardo el user en una variable
     var usuario = localStorage.getItem("usuario")
-
+    // funcion para formatear los elementos
     function addZero(i) {
         if (i < 10) {i = "0" + i}
         return i;
       }
-
-    // //Guardo como un array en localstorage
-    // localStorage.setItem('comentario', JSON.stringify(comentarioAEnviar));
-    // comentariosLocal.push(comentarioAEnviar)
-    // localStorage.setItem('comentario', JSON.stringify(comentarioAEnviar));
-    // mostrarComentarios();
-
-let comentarioAEnviar = {product: parseInt(productID), score: parseInt(formRating.value), description: formComentario.value, user: usuario, dateTime: fechaYHora};
-    // Guardo valor en localStorage
+    //Creo el array con los datos a enviar  
+    let comentarioAEnviar = {product: parseInt(productID), score: parseInt(formRating.value), description: formComentario.value, user: usuario, dateTime: fechaYHora};
+    // Guardo el array en localstorage
     localStorage.setItem("formvalores", JSON.stringify(comentarioAEnviar));
-    // Obtengo el valor y lo guardo en variable
-    
-    // Agrego item a la lista
+    // Agrego los valores del comentario al array
     comentariosLocal.push(comentarioAEnviar);
-    //Guardo como un array en localstorage
+    //Guardo como un array en localstorage el array con los datos
     localStorage.setItem('listaLocal', JSON.stringify(comentariosLocal));
-    
-
 }
-// let mandaresto = {
-//     "product": 50741,
-//     "score": 5,
-//     "description": "Precioso, a mi nena le encantó",
-//     "user": "silvia_fagundez",
-//     "dateTime": "2021-02-20 14:00:42"
-// };
-// function crearcomentario(array) {
-//     array.push(mandaresto);
-//     mostrarComentarios();
-// }
 
 document.addEventListener("DOMContentLoaded", function (e) {
     //Obtengo la info del producto
@@ -165,10 +107,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
             mostrarComentarios();
         };
     });
-
+    //Verifico el envio con boton y mando a crear el comentario
     formEnviar.addEventListener("click", function(){
         console.log("envie el formulario");
         crearComentario();
-
     });
 });
