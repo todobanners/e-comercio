@@ -2,6 +2,7 @@
 let productID = localStorage.getItem('productID');
 //Obtengo numero de categoria del localstorage
 let numCategory = localStorage.getItem("catID");
+
 const EXT_TYPE = ".json";
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
 const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
@@ -46,18 +47,17 @@ let getJSONData = function(url){
 
 // Si tengo guardado un usuario en localstorage muestro el nombre arriba, sino lo redirijo al login
 if (localStorage.getItem('usuario') != null) {
+  //Si el user no tiene imagen muestro una por defecto
   if (localStorage.getItem('imagen') == null) {
     imagen = 'img/img_perfil.png';
-  } else {
-    imagen = localStorage.getItem('imagen');
-   
-  }
+  } else { imagen = localStorage.getItem('imagen'); }
+  //Muestro el nombre e imagen en el menu
   document.querySelector('ul li:last-child').innerHTML = `<a href="" id="nombreUsuario" class="nav-link"><img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
 } else {
   window.location.href = "login.html";
 }
 
-// LogOut
+// Borro del localStorage el usuario
 document.getElementById("nombreUsuario").addEventListener("click", function(){
   localStorage.removeItem("usuario")
 })
