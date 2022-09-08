@@ -9,12 +9,6 @@ let formComentario = document.getElementById("comentario");
 let formRating = document.getElementById("rating");
 let comentariosLocal = JSON.parse(localStorage.getItem("listaLocal"));
 if (comentariosLocal === null) {comentariosLocal = [] }; // Solucion a bug que sucede si se actualiza la pagina y no hay elementos en el array da error.
-//Obtenemos las imagenes
-function mostrarImagenes(){
-    for (const imagen of imagenesProducto) {
-        imagenes.innerHTML += `<a href="${imagen}"><img src="${imagen}" class="img-thumbnail m-1" alt="" height="200" width="200"></a>`;
-    }
-}
 
 //Obtenemos la informacion
 function mostrarInfo(){
@@ -32,16 +26,19 @@ function mostrarInfo(){
     </div>
     `; 
 }
-//Funcion para mostrar las estrellas en los comentarios
-function mostrarRating(valor) {
-    //Hago la resta entre el total de estrellas y el valor para saber cuantas estrellas vacias colocar
-    let resta = 5 - valor;
-    //HTML para estrellas vacias y que se repita resta cantidades
-    let estrellasVacias = '<span class="fa fa-star"></span>'.repeat(resta);
-    //lo mismo pero para estrellas llenas y que se repita valor cantidades
-    let estrellasLlenas =  '<span class="fa fa-star checked"></span>'.repeat(valor);
-    // retorno las estrellas y muestro
-    return estrellasLlenas + estrellasVacias;
+
+//Obtenemos las imagenes
+function mostrarImagenes(){
+    
+    for (const imagen of imagenesProducto) {
+        
+        imagenes.innerHTML += `
+        <div class="carousel-item">
+          <img src="${imagen}" class="d-block w-100" alt="...">
+        </div>`;
+    }
+    let primerFoto = document.querySelector(".carousel-item");
+    primerFoto.className = "carousel-item active";
 }
 
 //Obtenemos los comentarios
@@ -65,6 +62,18 @@ function mostrarComentarios() {
         }
         
     }
+}
+
+//Funcion para mostrar las estrellas en los comentarios
+function mostrarRating(valor) {
+    //Hago la resta entre el total de estrellas y el valor para saber cuantas estrellas vacias colocar
+    let resta = 5 - valor;
+    //HTML para estrellas vacias y que se repita resta cantidades
+    let estrellasVacias = '<span class="fa fa-star"></span>'.repeat(resta);
+    //lo mismo pero para estrellas llenas y que se repita valor cantidades
+    let estrellasLlenas =  '<span class="fa fa-star checked"></span>'.repeat(valor);
+    // retorno las estrellas y muestro
+    return estrellasLlenas + estrellasVacias;
 }
 
 //Funcion para crear comentario
