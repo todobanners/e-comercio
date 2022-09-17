@@ -1,3 +1,4 @@
+//Creo las variables necesarias
 let datosProducto = [];
 let imagenesProducto = [];
 let comentariosProducto = [];
@@ -8,21 +9,24 @@ let formEnviar = document.getElementById("enviar");
 let formComentario = document.getElementById("comentario");
 let formRating = document.getElementById("rating");
 let comentariosLocal = JSON.parse(localStorage.getItem("listaLocal"));
-if (comentariosLocal === null) {comentariosLocal = [] }; // Solucion a bug que sucede si se actualiza la pagina y no hay elementos en el array da error.
+// Si no existen comentarios en el LocalStorage guardo la variable vacia
+if (comentariosLocal === null) {comentariosLocal = [] }; 
 
-//Obtenemos la informacion
+//Obtenemos la informacion del producto
 function mostrarInfo(){
     contenido.innerHTML = `
     <div class="p-4">
         <h1>${datosProducto.name}</h1>
-        <dt>Precio</dt>
-        <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
-        <dt>Descripción:</dt>
-        <dd>${datosProducto.description}</dd>
-        <dt>Categoría:</dt>
-        <dd>${datosProducto.category}</dd>
-        <dt>Cantidad de vendidos</dt>
-        <dd>${datosProducto.soldCount}</dd>
+        <dl>
+            <dt>Precio</dt>
+            <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
+            <dt>Descripción:</dt>
+            <dd>${datosProducto.description}</dd>
+            <dt>Categoría:</dt>
+            <dd>${datosProducto.category}</dd>
+            <dt>Cantidad de vendidos</dt>
+            <dd>${datosProducto.soldCount}</dd>
+        </dl>
     </div>
     `; 
 }
@@ -31,24 +35,24 @@ function mostrarInfo(){
 function mostrarImagenes(){
     
     for (const imagen of imagenesProducto) {
-        
         imagenes.innerHTML += `
-        <div class="carousel-item">
-          <img src="${imagen}" class="d-block w-100" alt="...">
+        <div class="carousel-item ">
+          <img src="${imagen}" class="d-block w-100" alt="${datosProducto.name}">
         </div>`;
     }
+    //Detecto la primer foto para colocar clase active, y de esa manera hacer funcionar el carousel
     let primerFoto = document.querySelector(".carousel-item");
     primerFoto.className = "carousel-item active";
 }
 
 //Obtenemos los comentarios
 function mostrarComentarios() {
-    // creo un array con concat() uniendo el del localStorage y el traido por getJSONdata
+    // Creo un array con concat() uniendo el array del localStorage y el array traido por getJSONdata
     let comentTotal = comentariosProducto.concat(comentariosLocal)
     // limpio antes del for
     comentarios.innerHTML = "";
     for (const comentario of comentTotal){
-        //Muestra solo los comentarios para el ProductID actual
+        //Filtro que solo muestra los comentarios para el ProductID actual
         if (comentario.product == productID) {
             comentarios.innerHTML += `
         <div class="card m-1">
@@ -80,16 +84,13 @@ function mostrarRating(valor) {
 function crearComentario() {
     //Obtengo la fecha y hora de hoy y formateo segun json
     var hoy = new Date();
-    //Para el caso de month obtiene el mes numerico del 0 al 11 lo cual hace que se obtenga algo no acorde a la realidad comun
-    //Por lo tanto se soluciona agregando +1 al valor y con padStart se le agrega un 0 a los meses con 1 digito.
-    var fechaYHora = hoy.getFullYear() + '-' + (hoy.getMonth() + 1).toString().padStart(2, 0) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
+    // funcion para agregar 0
+    function addZero(i) {if (i < 10) {i = "0" + i} return i}
+    //Para el caso de month obtiene el mes numerico del 0 al 11 lo cual hace que se obtenga algo no acorde a la realidad
+    //Por lo tanto se soluciona agregando +1 al valor y con addZero se le agrega un 0 a los meses dias y horas con 1 digito.
+    var fechaYHora = hoy.getFullYear() + '-' + addZero(hoy.getMonth() + 1) + '-' + addZero(hoy.getDate())+ ' ' + addZero(hoy.getHours()) + ':' + addZero(hoy.getMinutes()) + ':' + addZero(hoy.getSeconds());
     //Guardo el user en una variable
     var usuario = localStorage.getItem("usuario")
-    // funcion para formatear los elementos
-    function addZero(i) {
-        if (i < 10) {i = "0" + i}
-        return i;
-      }
     //Creo el array con los datos a enviar  
     let comentarioAEnviar = {product: parseInt(productID), score: parseInt(formRating.value), description: formComentario.value, user: usuario, dateTime: fechaYHora};
     // Guardo el array en localstorage
@@ -100,6 +101,7 @@ function crearComentario() {
     localStorage.setItem('listaLocal', JSON.stringify(comentariosLocal));
 }
 
+//Cuando cargue el dom...
 document.addEventListener("DOMContentLoaded", function (e) {
     //Obtengo la info del producto
     getJSONData(PRODUCT_INFO_URL).then(function (producto){
@@ -120,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
     //Verifico el envio con boton y mando a crear el comentario
     formEnviar.addEventListener("click", function(){
-        console.log("envie el formulario");
         crearComentario();
     });
 });
