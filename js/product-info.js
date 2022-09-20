@@ -4,6 +4,7 @@ let imagenesProducto = [];
 let comentariosProducto = [];
 let contenido = document.getElementById("contenido");
 let imagenes = document.getElementById("imagenes");
+let relacionados = document.getElementById("relacionados");
 let comentarios = document.getElementById("comentarios");
 let formEnviar = document.getElementById("enviar");
 let formComentario = document.getElementById("comentario");
@@ -43,6 +44,23 @@ function mostrarImagenes(){
     //Detecto la primer foto para colocar clase active, y de esa manera hacer funcionar el carousel
     let primerFoto = document.querySelector(".carousel-item");
     primerFoto.className = "carousel-item active";
+}
+
+function mostrarRelacionados() {
+    relacionados.innerHTML = "";
+    datosProducto.relatedProducts.forEach(producto => {
+
+        console.log(producto);
+        console.log(producto.name);
+        relacionados.innerHTML += `<div class="col-4" onclick="setProdRel(${producto.id})"><img src="${producto.image}" class="img-thumbnail m-1" alt="${producto.name}" heigth="300" width="300"><p>${producto.name}</p></div>`;
+    });
+}
+
+function setProdRel(id) {
+    //guardo en LS
+    localStorage.setItem("productID", id);
+    //Redirijo a la pag de productos
+    window.location = "product-info.html";
 }
 
 //Obtenemos los comentarios
@@ -108,8 +126,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (producto.status === "ok") {
             datosProducto = producto.data;
             imagenesProducto = producto.data.images;
+            //relacionadosProducto = producto.data.relatedProducts
             mostrarInfo();
             mostrarImagenes();
+            mostrarRelacionados();
+            
         };
     });
 
@@ -124,4 +145,5 @@ document.addEventListener("DOMContentLoaded", function (e) {
     formEnviar.addEventListener("click", function(){
         crearComentario();
     });
+
 });
