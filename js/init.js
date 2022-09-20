@@ -51,8 +51,17 @@ if (localStorage.getItem('usuario') != null) {
   if (localStorage.getItem('imagen') == null) {
     imagen = 'img/img_perfil.png';
   } else { imagen = localStorage.getItem('imagen'); }
+  document.querySelector('ul li:last-child').className = "nav-item dropdown";
   //Muestro el nombre e imagen en el menu
-  document.querySelector('ul li:last-child').innerHTML = `<a href="" id="nombreUsuario" class="nav-link"><img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}</a>`;
+  document.querySelector('ul li:last-child').innerHTML = `
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}
+</a>
+<ul class="dropdown-menu ">
+  <li><a class="dropdown-item" href="/cart.html">Mi carrito</a></li>
+  <li><a class="dropdown-item" href="/my-profile.html">Mi perfil</a></li>
+  <li><a class="dropdown-item" id="nombreUsuario" href="">LogOut</a></li>
+</ul>`;
 } else {
   window.location.href = "login.html";
 }
