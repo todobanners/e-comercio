@@ -55,12 +55,12 @@ if (localStorage.getItem('usuario') != null) {
   //Muestro el nombre e imagen en el menu
   document.querySelector('ul li:last-child').innerHTML = `
   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-  <img src="${imagen}" alt="" width="30" height="30">${localStorage.getItem('usuario')}
+  <img src="${imagen}" alt="" width="30" height="30"> ${localStorage.getItem('usuario')}
 </a>
 <ul class="dropdown-menu ">
-  <li><a class="dropdown-item" href="/cart.html">Mi carrito</a></li>
-  <li><a class="dropdown-item" href="/my-profile.html">Mi perfil</a></li>
-  <li><a class="dropdown-item" id="nombreUsuario" href="">LogOut</a></li>
+  <li><a class="dropdown-item" href="/cart.html"><i class="fas fa-shopping-cart"></i> Mi carrito</a></li>
+  <li><a class="dropdown-item" href="/my-profile.html"><i class="fas fa-user"></i> Mi perfil</a></li>
+  <li><a class="dropdown-item" id="nombreUsuario" href=""><i class="fas fa-sign-out-alt"></i> LogOut</a></li>
 </ul>`;
 } else {
   window.location.href = "login.html";
