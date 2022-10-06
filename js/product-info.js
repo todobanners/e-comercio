@@ -49,9 +49,6 @@ function mostrarImagenes(){
 function mostrarRelacionados() {
     relacionados.innerHTML = "";
     datosProducto.relatedProducts.forEach(producto => {
-
-        console.log(producto);
-        console.log(producto.name);
         relacionados.innerHTML += `<div class="col-4" onclick="setProdRel(${producto.id})"><img src="${producto.image}" class="img-thumbnail m-1" alt="${producto.name}" heigth="300" width="300"><p>${producto.name}</p></div>`;
     });
 }
@@ -126,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (producto.status === "ok") {
             datosProducto = producto.data;
             imagenesProducto = producto.data.images;
-            //relacionadosProducto = producto.data.relatedProducts
             mostrarInfo();
             mostrarImagenes();
             mostrarRelacionados();
