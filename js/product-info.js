@@ -13,11 +13,15 @@ let comentariosLocal = JSON.parse(localStorage.getItem("listaLocal"));
 // Si no existen comentarios en el LocalStorage guardo la variable vacia
 if (comentariosLocal === null) {comentariosLocal = [] }; 
 
+
 //Obtenemos la informacion del producto
 function mostrarInfo(){
     contenido.innerHTML = `
-    <div class="p-4">
-        <h1>${datosProducto.name}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-lg-9"><h1>${datosProducto.name}</h1></div>
+            <div class="col-sm-4 col-lg-3" id="btnComprar"><a onclick="comprar(${datosProducto.id})" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a></div>
+        </div>        
         <dl>
             <dt>Precio</dt>
             <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
@@ -31,6 +35,25 @@ function mostrarInfo(){
     </div>
     `; 
 }
+
+function comprar() {
+    
+    let articulo = {id: datosProducto.id, name: datosProducto.name, count: 1,unitCost: datosProducto.cost, currency: datosProducto.currency, image: datosProducto.images[0]};
+    let arayCarrito = JSON.parse(localStorage.getItem("carrito"));
+    if (arayCarrito === null) {arayCarrito = [] }; 
+    arayCarrito.push(articulo);
+    localStorage.setItem("carrito", JSON.stringify(arayCarrito));
+    document.getElementById("btnComprar").innerHTML = `<a onclick="quitar()" class="btn btn-warning" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Quitar del carrito</a>`;
+}
+
+function quitar() {
+    let articulos = JSON.parse(localStorage.getItem("carrito"));
+    var articulo = articulos.indexOf(datosProducto.id);
+    articulos.splice(articulo, 1);
+    console.log(articulos);
+    document.getElementById("btnComprar").innerHTML = `<a onclick="comprar()" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>`;
+}
+
 
 //Obtenemos las imagenes
 function mostrarImagenes(){
