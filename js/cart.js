@@ -44,7 +44,7 @@ function generarTabla(param1, param2) {
         trCuerpo.appendChild(tdCost).innerHTML+=dato.unitCost;
         trCuerpo.appendChild(tdCantidad)
         tdSubTotal.setAttribute("id","subtotal-"+dato.id)
-        divInput.setAttribute("class","row align-items-center");
+        divInput.setAttribute("class","row");
         divColINput.setAttribute("class","col-sm-8 col-md-4 col-lg-3")
         tdCantidad.appendChild(divInput);
         divInput.appendChild(divColINput);

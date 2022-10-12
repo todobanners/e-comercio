@@ -13,47 +13,58 @@ let comentariosLocal = JSON.parse(localStorage.getItem("listaLocal"));
 // Si no existen comentarios en el LocalStorage guardo la variable vacia
 if (comentariosLocal === null) {comentariosLocal = [] }; 
 
+let localCarrito = JSON.parse(localStorage.getItem("carrito"));
+if (localCarrito === null) {localCarrito = [] }; 
 
+let btnComprar = document.createElement("div");
 //Obtenemos la informacion del producto
 function mostrarInfo(){
-    contenido.innerHTML = `
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 col-lg-9"><h1>${datosProducto.name}</h1></div>
-            <div class="col-sm-4 col-lg-3" id="btnComprar"><a onclick="comprar(${datosProducto.id})" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a></div>
-        </div>        
-        <dl>
-            <dt>Precio</dt>
-            <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
-            <dt>Descripción:</dt>
-            <dd>${datosProducto.description}</dd>
-            <dt>Categoría:</dt>
-            <dd>${datosProducto.category}</dd>
-            <dt>Cantidad de vendidos</dt>
-            <dd>${datosProducto.soldCount}</dd>
-        </dl>
-    </div>
-    `; 
+    let contenedor = document.createElement("div");
+    let row = document.createElement("div");
+    let titulo = document.createElement("div");
+    
+    let dl = document.createElement("dl");
+    contenedor.setAttribute("class","container")
+    contenido.appendChild(contenedor)
+    row.setAttribute("class","row");
+    contenedor.appendChild(row);
+    titulo.setAttribute("class","col-sm-8 col-lg-9");
+    titulo.innerHTML="<h1>"+datosProducto.name+"</h1>";
+    row.appendChild(titulo);
+    btnComprar.setAttribute("class","col-sm-4 col-lg-3")
+
+    if (localCarrito.filter(obj => obj.id === datosProducto.id).length > 0 ){
+        btnComprar.innerHTML = `<a class="btn btn-danger" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Ya tienes el producto</a>`;
+    }else{
+        btnComprar.innerHTML = `<a onclick="comprar()" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>`;
+    }
+    
+    row.appendChild(btnComprar);
+    dl.innerHTML = `<dt>Precio</dt>
+             <dd>${datosProducto.currency} ${datosProducto.cost}</dd>
+             <dt>Descripción:</dt>
+             <dd>${datosProducto.description}</dd>
+             <dt>Categoría:</dt>
+             <dd>${datosProducto.category}</dd>
+             <dt>Cantidad de vendidos</dt>
+             <dd>${datosProducto.soldCount}</dd>`;
+    contenedor.appendChild(dl);
 }
+
 
 function comprar() {
-    
     let articulo = {id: datosProducto.id, name: datosProducto.name, count: 1,unitCost: datosProducto.cost, currency: datosProducto.currency, image: datosProducto.images[0]};
-    let arayCarrito = JSON.parse(localStorage.getItem("carrito"));
-    if (arayCarrito === null) {arayCarrito = [] }; 
-    arayCarrito.push(articulo);
-    localStorage.setItem("carrito", JSON.stringify(arayCarrito));
-    document.getElementById("btnComprar").innerHTML = `<a onclick="quitar()" class="btn btn-warning" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Quitar del carrito</a>`;
+    if (localCarrito.filter(obj => obj.id === datosProducto.id).length > 0 ){
+        console.log("El producto ya se encontraba en el carrito");
+    }else{
+        localCarrito.push(articulo);
+        localStorage.setItem("carrito", JSON.stringify(localCarrito));
+        btnComprar.innerHTML = "";
+        btnComprar.innerHTML = `<a class="btn btn-warning" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Producto agregado!</a>`;
+        console.log("Producto agregado al carrito");
+    }
+    
 }
-
-function quitar() {
-    let articulos = JSON.parse(localStorage.getItem("carrito"));
-    var articulo = articulos.indexOf(datosProducto.id);
-    articulos.splice(articulo, 1);
-    console.log(articulos);
-    document.getElementById("btnComprar").innerHTML = `<a onclick="comprar()" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>`;
-}
-
 
 //Obtenemos las imagenes
 function mostrarImagenes(){
@@ -149,7 +160,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
             mostrarInfo();
             mostrarImagenes();
             mostrarRelacionados();
-            
         };
     });
 
