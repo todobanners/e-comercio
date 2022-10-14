@@ -5,7 +5,7 @@ let localCarrito = JSON.parse(localStorage.getItem("carrito"));
 if (localCarrito === null) {localCarrito = [] }; 
 function generarTabla(param1, param2) {
     var tabla = document.createElement("table");
-    tabla.setAttribute("class","table text-center mt-1");
+    tabla.setAttribute("class","table text-center mt-1 table-striped table-hover align-middle");
     tablaCarrito.appendChild(tabla);
 
     var thead = document.createElement("thead");
@@ -23,6 +23,7 @@ function generarTabla(param1, param2) {
     }
 
     var tbody = document.createElement("tbody")
+    tbody.setAttribute("class","table-group-divider");
     tabla.appendChild(tbody);
 
     carrito.forEach(dato => {
@@ -38,19 +39,19 @@ function generarTabla(param1, param2) {
 
         //td.setAttribute("id",dato.id);
 
-        trCuerpo.appendChild(tdImg).innerHTML+=`<img class="img-thumbnail" src="${dato.image}" width="200">`;
+        trCuerpo.appendChild(tdImg).innerHTML+=`<img class="img-thumbnail" src="${dato.image}" width="250">`;
 
         trCuerpo.appendChild(tdName).innerHTML+=dato.name;
         trCuerpo.appendChild(tdCost).innerHTML+=dato.unitCost;
         trCuerpo.appendChild(tdCantidad)
         tdSubTotal.setAttribute("id","subtotal-"+dato.id)
-        divInput.setAttribute("class","row");
-        divColINput.setAttribute("class","col-sm-8 col-md-4 col-lg-3")
+        divInput.setAttribute("class","row justify-content-center");
+        divColINput.setAttribute("class","col-10 col-sm-6 col-md-5 col-lg-3")
         tdCantidad.appendChild(divInput);
         divInput.appendChild(divColINput);
         divColINput.innerHTML+=`
         <input 
-        class="form-control" 
+        class="form-control " 
         min="1" 
         type="number" 
         value="${dato.count}" 
@@ -58,9 +59,9 @@ function generarTabla(param1, param2) {
         id="cantidad-${dato.id}"
         >`;
         document.getElementById("cantidad-"+dato.id).addEventListener("input", function(){
-        trCuerpo.appendChild(tdSubTotal).innerHTML= Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+        trCuerpo.appendChild(tdSubTotal).innerHTML= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
         })
-        trCuerpo.appendChild(tdSubTotal).innerHTML+=Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+        trCuerpo.appendChild(tdSubTotal).innerHTML+= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
     });
 
 }
