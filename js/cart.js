@@ -4,7 +4,7 @@ let carrito = [];
 let localCarrito = JSON.parse(localStorage.getItem("carrito"));
 if (localCarrito === null) {localCarrito = [] }; 
 
-function generarTabla(param1, param2) {
+function generarTabla() {
     var tabla = document.createElement("table");
     tabla.setAttribute("class","table text-center mt-1 table-striped table-hover align-middle");
     tablaCarrito.appendChild(tabla);
