@@ -3,6 +3,7 @@ let formEnvio = document.getElementById("formularioEnvio");
 let carrito = [];
 let localCarrito = JSON.parse(localStorage.getItem("carrito"));
 if (localCarrito === null) {localCarrito = [] }; 
+
 function generarTabla(param1, param2) {
     var tabla = document.createElement("table");
     tabla.setAttribute("class","table text-center mt-1 table-striped table-hover align-middle");
@@ -16,11 +17,11 @@ function generarTabla(param1, param2) {
 
     let titulosCabeceraTabla = ["","Nombre","Precio","Cantidad", "Subtotal"];
 
-    for (let i = 0; i < titulosCabeceraTabla.length; i++) {
-        const element = titulosCabeceraTabla[i];
-        var th = document.createElement("th");
-        trCabecera.appendChild(th).innerHTML = element;
-    }
+      for (let i = 0; i < titulosCabeceraTabla.length; i++) {
+          const element = titulosCabeceraTabla[i];
+          var th = document.createElement("th");
+          trCabecera.appendChild(th).innerHTML = element;
+      }
 
     var tbody = document.createElement("tbody")
     tbody.setAttribute("class","table-group-divider");
@@ -36,8 +37,6 @@ function generarTabla(param1, param2) {
         var tdSubTotal = document.createElement("td");
         var divInput = document.createElement("div");
         var divColINput = document.createElement("div");
-
-        //td.setAttribute("id",dato.id);
 
         trCuerpo.appendChild(tdImg).innerHTML+=`<img class="img-thumbnail" src="${dato.image}" width="250">`;
 
@@ -112,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
       if (info.status === "ok") {
           carrito = info.data.articles;
           carrito = carrito.concat(localCarrito);
-          console.log(carrito);
           generarTabla();
           formulario();
       };

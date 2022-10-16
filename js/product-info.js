@@ -22,8 +22,8 @@ function mostrarInfo(){
     let contenedor = document.createElement("div");
     let row = document.createElement("div");
     let titulo = document.createElement("div");
-    
     let dl = document.createElement("dl");
+
     contenedor.setAttribute("class","container")
     contenido.appendChild(contenedor)
     row.setAttribute("class","row");
