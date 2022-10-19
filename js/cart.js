@@ -6,6 +6,7 @@ let localCarrito = JSON.parse(localStorage.getItem("carrito"));
 if (localCarrito === null) {localCarrito = [] }; 
 let arraySubtotal = [];
 let formEnvio = document.getElementsByName("envio")
+let divForm = document.getElementById("formularioEnvio");
 
 
 function generarTabla() {
@@ -43,9 +44,14 @@ function generarTabla() {
         var divColINput = document.createElement("div");
 
         trCuerpo.appendChild(tdImg).innerHTML+=`<img class="img-thumbnail" src="${dato.image}" width="250">`;
-
+        let conversion = 0;
+          if (dato.currency == "UYU") {
+            conversion = Math.round(dato.unitCost / 40) ;
+          }else{
+            conversion = dato.unitCost;
+          }
         trCuerpo.appendChild(tdName).innerHTML+=dato.name;
-        trCuerpo.appendChild(tdCost).innerHTML+=dato.unitCost;
+        trCuerpo.appendChild(tdCost).innerHTML+="USD "+conversion;
         trCuerpo.appendChild(tdCantidad)
         tdSubTotal.setAttribute("id","subtotal-"+dato.id)
         divInput.setAttribute("class","row justify-content-center");
@@ -61,14 +67,15 @@ function generarTabla() {
         name="cantidad" 
         id="cantidad-${dato.id}"
         >`;
+        
         document.getElementById("cantidad-"+dato.id).addEventListener("input", function(){
-          tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
-          trCuerpo.appendChild(tdSubTotal).innerHTML= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+          tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * conversion;
+          trCuerpo.appendChild(tdSubTotal).innerHTML= "USD " + Number(document.getElementById("cantidad-"+dato.id).value) * conversion;
           obtenerTotal();
           mostrarCostos()
       })
-      tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
-        trCuerpo.appendChild(tdSubTotal).innerHTML+= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+      tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * conversion;
+        trCuerpo.appendChild(tdSubTotal).innerHTML+= "USD " + Number(document.getElementById("cantidad-"+dato.id).value) * conversion;
         
         
     });
@@ -79,9 +86,6 @@ function obtenerTotal() {
   arraySubtotal = document.querySelectorAll("[data-costo]");
   let suma = 0
   arraySubtotal.forEach(producto => {suma += Number(producto.dataset.costo)});
-  console.log(suma);
-  //console.log(arraySubtotal.dataset.costo);
- // console.log(arraySubtotal);
 return suma
 }
 
@@ -104,13 +108,15 @@ function mostrarCostos(){
     }
   }
 
-  muestroSubtotal.innerHTML = obtenerTotal();
-  costoEnvio.innerHTML = obtenerTotal() * tipoEnvio;
-  var envio = obtenerTotal() * tipoEnvio;
-  costoTotal.innerHTML = obtenerTotal() + envio;
+  muestroSubtotal.innerHTML = obtenerTotal()+" USD";
+  var envio = Math.round(obtenerTotal() * tipoEnvio);
+  costoEnvio.innerHTML = envio+" USD";
+  costoTotal.innerHTML = Math.round(obtenerTotal() + envio)+" USD" ;
 }
 
-
+divForm.addEventListener("input", function(a){
+  mostrarCostos();
+});
 //Cuando cargue el dom...
 document.addEventListener("DOMContentLoaded", function (e) {
   //Obtengo la info del producto
