@@ -1,8 +1,12 @@
 let tablaCarrito = document.getElementById("tablaCarrito");
-let formEnvio = document.getElementById("formularioEnvio");
+let subTotal = document.getElementById("subTotal");
+let sumaTotalProductos = 0;
 let carrito = [];
 let localCarrito = JSON.parse(localStorage.getItem("carrito"));
 if (localCarrito === null) {localCarrito = [] }; 
+let arraySubtotal = [];
+let formEnvio = document.getElementsByName("envio")
+
 
 function generarTabla() {
     var tabla = document.createElement("table");
@@ -58,51 +62,54 @@ function generarTabla() {
         id="cantidad-${dato.id}"
         >`;
         document.getElementById("cantidad-"+dato.id).addEventListener("input", function(){
-        trCuerpo.appendChild(tdSubTotal).innerHTML= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
-        })
+          tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+          trCuerpo.appendChild(tdSubTotal).innerHTML= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+          obtenerTotal();
+          mostrarCostos()
+      })
+      tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
         trCuerpo.appendChild(tdSubTotal).innerHTML+= dato.currency+" " + Number(document.getElementById("cantidad-"+dato.id).value) * dato.unitCost;
+        
+        
     });
 
 }
 
-function formulario() {
-  formEnvio.innerHTML=`
-        <h4>Tipo de envio</h4>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="envio" id="premium" checked>
-          <label class="form-check-label" for="premium">
-            Premium 2 a 5 dias (15%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="envio" id="express">
-          <label class="form-check-label" for="express">
-            Express 5 a 8 dias (7%)
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="envio" id="standard">
-          <label class="form-check-label" for="standard">
-            Standard 12 a 15 dias (5%)
-          </label>
-        </div>
-        <hr>
-        <h4>Direccion de envio</h4>
-        <div class="row g-2">
-          <div class="col-sm-9">
-            <label class="form-check-label" for="calle">Calle</label>
-            <input type="text" name="calle" id="calle" class="form-control" placeholder="Av. Pirulin">
-          </div>
-          <div class="col-sm">
-            <label class="form-check-label" for="numero">Numero</label>
-            <input type="number" name="numero" id="numero" class="form-control" placeholder="1256">
-          </div>
-          <div class="col-sm-9">
-            <label class="form-check-label" for="esquina">Esquina</label>
-            <input type="text" name="esquina" id="esquina" class="form-control" placeholder="Pepito">
-          </div>
-        </div>`;
+function obtenerTotal() {
+  arraySubtotal = document.querySelectorAll("[data-costo]");
+  let suma = 0
+  arraySubtotal.forEach(producto => {suma += Number(producto.dataset.costo)});
+  console.log(suma);
+  //console.log(arraySubtotal.dataset.costo);
+ // console.log(arraySubtotal);
+return suma
 }
+
+function formulario() {
+  
+}
+
+function mostrarCostos(){
+  let muestroSubtotal = document.getElementById("subtotal");
+  let costoEnvio = document.getElementById("costoEnvio");
+  let costoTotal = document.getElementById("costoTotal");
+  
+  let tipoEnvio = 0
+
+  
+  for (let i = 0; i < formEnvio.length; i++) {
+    const element = formEnvio[i];
+    if (element.checked) {
+      tipoEnvio = element.value
+    }
+  }
+
+  muestroSubtotal.innerHTML = obtenerTotal();
+  costoEnvio.innerHTML = obtenerTotal() * tipoEnvio;
+  var envio = obtenerTotal() * tipoEnvio;
+  costoTotal.innerHTML = obtenerTotal() + envio;
+}
+
 
 //Cuando cargue el dom...
 document.addEventListener("DOMContentLoaded", function (e) {
@@ -113,6 +120,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
           carrito = carrito.concat(localCarrito);
           generarTabla();
           formulario();
+          mostrarCostos();
+          
+          
       };
   });
 });

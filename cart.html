@@ -41,7 +41,69 @@
         <h3 class="mt-4">Carrito de compra</h3>
       </div>
       <div id="formularioEnvio">
+        <h3 class="mt-4">Tipo de envio</h3>
+        <div class="form-check">
+          <input value="0.15" class="form-check-input" type="radio" name="envio" id="premium" checked>
+          <label class="form-check-label" for="premium">
+            Premium 2 a 5 dias (15%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input value="0.07" class="form-check-input" type="radio" name="envio" id="express">
+          <label class="form-check-label" for="express">
+            Express 5 a 8 dias (7%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input value="0.05" class="form-check-input" type="radio" name="envio" id="standard">
+          <label class="form-check-label" for="standard">
+            Standard 12 a 15 dias (5%)
+          </label>
+        </div>
         
+        <h3 class="mt-4">Direccion de envio</h3>
+        <div class="row g-2">
+          <div class="col-sm-9">
+            <label class="form-check-label" for="calle">Calle</label>
+            <input type="text" name="calle" id="calle" class="form-control" placeholder="Av. Pirulin">
+          </div>
+          <div class="col-sm">
+            <label class="form-check-label" for="numero">Numero</label>
+            <input type="number" name="numero" id="numero" class="form-control" placeholder="1256">
+          </div>
+          <div class="col-sm-9">
+            <label class="form-check-label" for="esquina">Esquina</label>
+            <input type="text" name="esquina" id="esquina" class="form-control" placeholder="Pepito">
+          </div>
+        </div>
+      </div>
+      <div id="subTotal">
+
+        <h3 class="mt-4">Costos</h3>
+
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Subtotal</h5>
+              <h5 class="text-muted" id="subtotal">USD ACA EL VALOR</h5>
+            </div>
+            <p class="mb-1">Costo unitario de productos por cantidad</p>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Costo de envio</h5>
+              <small class="text-muted" id="costoEnvio">USD ACA EL VALOR</small>
+            </div>
+            <p class="mb-1">Segun el tipo de envio</p>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">TOTAL</h5>
+              <b id="costoTotal">USD ACA EL VALOR</b>
+            </div>
+          </a>
+        </div>
+
       </div>
     </div>
   </main>
