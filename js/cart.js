@@ -65,7 +65,8 @@ function generarTabla() {
         type="number" 
         value="${dato.count}" 
         name="cantidad" 
-        id="cantidad-${dato.id}"
+        id="cantidad-${dato.id}" 
+        required
         >`;
         
         document.getElementById("cantidad-"+dato.id).addEventListener("input", function(){
