@@ -55,7 +55,7 @@ function generarTabla() {
         trCuerpo.appendChild(tdCantidad)
         tdSubTotal.setAttribute("id","subtotal-"+dato.id)
         divInput.setAttribute("class","row justify-content-center");
-        divColINput.setAttribute("class","col-10 col-sm-6 col-md-5 col-lg-3")
+        divColINput.setAttribute("class","col-10 col-sm-10 col-md-6 col-lg-4")
         tdCantidad.appendChild(divInput);
         divInput.appendChild(divColINput);
         divColINput.innerHTML+=`
@@ -118,6 +118,49 @@ function mostrarCostos(){
 divForm.addEventListener("input", function(a){
   mostrarCostos();
 });
+
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+
+let pagoCredito = document.getElementById("credito")
+let pagoBanco = document.getElementById("banco")
+
+function formaDePago() {
+  if (pagoCredito.checked) {
+    document.getElementById("numeroCuentaBanco").setAttribute("disabled","")
+
+    document.getElementById("numeroTarjeta").removeAttribute("disabled","")
+    document.getElementById("codigoSeguridad").removeAttribute("disabled","")
+    document.getElementById("vencimientoTarjeta").removeAttribute("disabled","")
+    
+  }
+  if (pagoBanco.checked) {
+    document.getElementById("numeroTarjeta").setAttribute("disabled","")
+    document.getElementById("codigoSeguridad").setAttribute("disabled","")
+    document.getElementById("vencimientoTarjeta").setAttribute("disabled","")
+
+    document.getElementById("numeroCuentaBanco").removeAttribute("disabled","")
+  }
+}
+
+document.getElementById("formaPagoModal").addEventListener("input", function(e){
+  formaDePago();
+})
+
 //Cuando cargue el dom...
 document.addEventListener("DOMContentLoaded", function (e) {
   //Obtengo la info del producto
@@ -128,8 +171,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
           generarTabla();
           formulario();
           mostrarCostos();
-          
-          
       };
   });
 });
