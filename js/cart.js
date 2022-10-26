@@ -118,21 +118,18 @@ divForm.addEventListener("input", function (a) {
 
 
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-    const alert = (message, type) => {
-    const wrapper = document.createElement('div')
-    wrapper.innerHTML = [
-      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-      `   <div>${message}</div>`,
-      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-      '</div>'
-    ].join('')
+const alert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('')
 
   alertPlaceholder.append(wrapper)
 }
 
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-// Fetch all the forms we want to apply custom Bootstrap validation styles to
 const forms = document.querySelectorAll('.needs-validation')
 
 // Loop over them and prevent submission
@@ -142,12 +139,12 @@ Array.from(forms).forEach(form => {
       event.preventDefault()
       event.stopPropagation()
       alert('Algo no esta bien, revisa porfavor', 'danger')
-      if(!form.banco.checkValidity() && !form.credito.checkValidity() ){
+      if (!form.banco.checkValidity() && !form.credito.checkValidity()) {
         document.getElementById("formaPagoValido").classList.add("d-block")
       }
 
-    }else{
-      event.preventDefault()
+    } else {
+      event.preventDefault() // Se agrega apra evitar que se recargue la pagina y e pierda el mensaje.
       alert('Sus pedidos seran enviados segun lo seleccionado, gracias por comprar en e-mercado', 'success')
     }
 
@@ -193,7 +190,7 @@ function formaDePago() {
     document.getElementById("formaPagoValido").classList.remove("d-none")
     return "Seleccionar metodo"
   }
-  
+
 }
 
 document.getElementById("formaPagoModal").addEventListener("input", function (e) {
