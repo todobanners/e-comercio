@@ -37,7 +37,7 @@
   </nav>
   <main>
     <div class="container">
-      <form action="" class="needs-validation" novalidate>
+      <form action="" class="needs-validation" novalidate id="formulario">
       <div id="tablaCarrito">
         <h3 class="mt-4">Carrito de compra</h3>
       </div>
@@ -68,14 +68,18 @@
           <div class="col-sm-9">
             <label class="form-check-label" for="calle">Calle</label>
             <input type="text" name="calle" id="calle" class="form-control" placeholder="Av. Pirulin" required>
+            <div class="invalid-feedback">Ingrese una calle</div>
+        
           </div>
           <div class="col-sm">
             <label class="form-check-label" for="numero">Numero</label>
             <input type="number" name="numero" id="numero" class="form-control" placeholder="1256" required>
+            <div class="invalid-feedback">Ingrese un numero de puerta</div>
           </div>
           <div class="col-sm-9">
             <label class="form-check-label" for="esquina">Esquina</label>
             <input type="text" name="esquina" id="esquina" class="form-control" placeholder="Pepito" required>
+            <div class="invalid-feedback">Ingrese una esquina</div>
           </div>
         </div>
       </div>
@@ -123,7 +127,7 @@
       <div class="modal-body">
         <div class="row g-3">
           <div class="form-check">
-            <input value="credito" class="form-check-input" type="radio" name="seleccionPago" id="credito">
+            <input value="credito" class="form-check-input" type="radio" name="seleccionPago" id="credito" required>
             <label class="form-check-label" for="credito" >
               Tarjeta de credito
             </label>
@@ -132,14 +136,17 @@
           <div class="col-md-6">
             <label for="numeroTarjeta" class="form-label">Numero de tarjeta</label>
             <input type="number" class="form-control" id="numeroTarjeta">
+            <div class="invalid-feedback">Ingrese un numero</div>
           </div>
           <div class="col-md-6">
             <label for="codigoSeguridad" class="form-label">Codigo de seguridad (CVV)</label>
             <input type="number" class="form-control" id="codigoSeguridad">
+            <div class="invalid-feedback">Ingrese un numero</div>
           </div>
           <div class="col-6">
             <label for="vencimientoTarjeta" class="form-label">Vencimiento MM/AA</label>
             <input type="text" class="form-control" id="vencimientoTarjeta" placeholder="25/03" data-form-type="address">
+            <div class="invalid-feedback">Ingrese la fecha</div>
           </div>
           <div class="form-check">
             <input value="banco" class="form-check-input" type="radio" name="seleccionPago" id="banco" >
@@ -151,6 +158,7 @@
           <div class="col-md-12">
             <label for="numeroCuentaBanco" class="form-label">Numero de cuenta</label>
             <input type="number" class="form-control" id="numeroCuentaBanco">
+            <div class="invalid-feedback">Ingrese un numero</div>
           </div>
         </div>
       </div>
@@ -161,9 +169,15 @@
   </div>
 </div>
 
-        <p id="formaSeleccionada">Forma de pago <a href="#" data-bs-toggle="modal" data-bs-target="#formaPagoModal">seleccionar</a></p>
+        <p>Forma de pago <a href="#" data-bs-toggle="modal" data-bs-target="#formaPagoModal" id="formaSeleccionada">seleccionar</a></p>
+        <div id="formaPagoValido" class="invalid-feedback">
+          Debe seleccionar y completar una forma de pago
+        </div>
+  
         <div class="row m-1">      
         <button type="submit" id="btnEnviarForm" class="btn btn-primary btn-lg">Finalizar compra</button></div>
+        <div id="liveAlertPlaceholder"></div>
+
       </form>
       </div>
     </div>
