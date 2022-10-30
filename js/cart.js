@@ -3,6 +3,7 @@ let subTotal = document.getElementById("subTotal");
 let sumaTotalProductos = 0;
 let carrito = [];
 let localCarrito = JSON.parse(localStorage.getItem("carrito"));
+// Si no existe un elemento en el Localstorage lo genero como vacio para evitar errores en JS
 if (localCarrito === null) { localCarrito = [] };
 let arraySubtotal = [];
 let formEnvio = document.getElementsByName("envio")
@@ -11,6 +12,7 @@ let pagoCredito = document.getElementById("credito")
 let pagoBanco = document.getElementById("banco")
 let formulario = document.getElementById("formulario")
 
+//Genera la tabla con los elementos necesarios para el carrito
 function generarTabla() {
   var tabla = document.createElement("table");
   tabla.setAttribute("class", "table text-center mt-1 table-striped table-hover align-middle");
@@ -84,39 +86,32 @@ function generarTabla() {
   });
 
 }
-
+//Hace la suma de cada elemento en el carrito
 function obtenerTotal() {
   arraySubtotal = document.querySelectorAll("[data-costo]");
   let suma = 0
   arraySubtotal.forEach(producto => { suma += Number(producto.dataset.costo) });
   return suma
 }
-
+//Muestra el costo detallado 
 function mostrarCostos() {
   let muestroSubtotal = document.getElementById("subtotal");
   let costoEnvio = document.getElementById("costoEnvio");
   let costoTotal = document.getElementById("costoTotal");
-
   let tipoEnvio = 0
-
   for (let i = 0; i < formEnvio.length; i++) {
     const element = formEnvio[i];
     if (element.checked) {
       tipoEnvio = element.value
     }
   }
-
   muestroSubtotal.innerHTML = obtenerTotal() + " USD";
   var envio = Math.round(obtenerTotal() * tipoEnvio);
   costoEnvio.innerHTML = envio + " USD";
   costoTotal.innerHTML = Math.round(obtenerTotal() + envio) + " USD";
 }
 
-divForm.addEventListener("input", function (a) {
-  mostrarCostos();
-});
-
-
+// Sistema de alertas para la validacion del form
 const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 const alert = (message, type) => {
   const wrapper = document.createElement('div')
@@ -126,13 +121,13 @@ const alert = (message, type) => {
     '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
     '</div>'
   ].join('')
-
   alertPlaceholder.append(wrapper)
 }
 
+// Para todos los formularios con la calse needs-validation de bs
 const forms = document.querySelectorAll('.needs-validation')
 
-// Loop over them and prevent submission
+// Armo array con todos los forms y prevengo el envio si no pasa validacion
 Array.from(forms).forEach(form => {
   form.addEventListener('submit', event => {
     if (!form.checkValidity()) {
@@ -140,11 +135,12 @@ Array.from(forms).forEach(form => {
       event.stopPropagation()
       alert('Algo no esta bien, revisa porfavor', 'danger')
       if (!form.banco.checkValidity() && !form.credito.checkValidity()) {
+        //Si no se lleno una forma de pago muestro un aviso
         document.getElementById("formaPagoValido").classList.add("d-block")
       }
 
     } else {
-      event.preventDefault() // Se agrega apra evitar que se recargue la pagina y e pierda el mensaje.
+      event.preventDefault() // Se agrega para evitar que se recargue la pagina y se pierda el mensaje.
       alert('Sus pedidos seran enviados segun lo seleccionado, gracias por comprar en e-mercado', 'success')
     }
 
@@ -152,8 +148,8 @@ Array.from(forms).forEach(form => {
   }, false)
 })
 
-
-
+// Dependiendo la forma de pago elegida hago que se pueda editar un campo u otro
+// retorna un String con el metodo de pago elegido
 function formaDePago() {
   if (pagoCredito.checked) {
     document.getElementById("numeroCuentaBanco").setAttribute("disabled", "")
@@ -175,14 +171,13 @@ function formaDePago() {
     document.getElementById("numeroTarjeta").setAttribute("disabled", "")
     document.getElementById("codigoSeguridad").setAttribute("disabled", "")
     document.getElementById("vencimientoTarjeta").setAttribute("disabled", "")
+    document.getElementById("numeroCuentaBanco").setAttribute("required", "")
 
     document.getElementById("numeroTarjeta").removeAttribute("required", "")
     document.getElementById("codigoSeguridad").removeAttribute("required", "")
     document.getElementById("vencimientoTarjeta").removeAttribute("required", "")
-
     document.getElementById("numeroCuentaBanco").removeAttribute("disabled", "")
-    document.getElementById("numeroCuentaBanco").setAttribute("required", "")
-
+  
     document.getElementById("formaPagoValido").classList.remove("d-block")
     return "Cuenta bancaria"
   }
@@ -190,9 +185,8 @@ function formaDePago() {
     document.getElementById("formaPagoValido").classList.remove("d-none")
     return "Seleccionar metodo"
   }
-
 }
-
+// Muestra el metodo elegido de pago y abre el modal de seleccion
 document.getElementById("formaPagoModal").addEventListener("input", function (e) {
   formaDePago();
   document.getElementById("formaSeleccionada").innerText = formaDePago();
@@ -207,6 +201,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
       carrito = carrito.concat(localCarrito);
       generarTabla();
       mostrarCostos();
+      // actualiza el costo a medida que se actualizan o cambian los datos
+      divForm.addEventListener("input", function (a) {mostrarCostos()});
     };
   });
 });
