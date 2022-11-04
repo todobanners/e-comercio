@@ -48,9 +48,9 @@ let getJSONData = function(url){
 // Si tengo guardado un usuario en localstorage muestro el nombre arriba, sino lo redirijo al login
 if (localStorage.getItem('userEmail') != null) {
   //Si el user no tiene imagen muestro una por defecto
-  if (localStorage.getItem('imagen') == null) {
+  if (localStorage.getItem('userImagen') == null) {
     imagen = 'img/img_perfil.png';
-  } else { imagen = localStorage.getItem('imagen'); }
+  } else { imagen = localStorage.getItem('userImagen'); }
   document.querySelector('ul li:last-child').className = "nav-item dropdown";
   //Muestro el nombre e imagen en el menu
   document.querySelector('ul li:last-child').innerHTML = `
