@@ -8,7 +8,7 @@ document.getElementById('login').addEventListener('submit', evento => {
     if (user.value.length > 0 && contra.value.length > 0) {
         evento.preventDefault();
         //Guardo en localStorage los datos del usuario
-        localStorage.setItem("usuario", user.value)
+        localStorage.setItem("userEmail", user.value)
         //Redirijo a la pagina de index
         window.location.href = "index.html";
     } else {
@@ -35,5 +35,4 @@ function handleCredentialResponse(response) {
     <p>Tu correo es ${responsePayload.email}</p><p>Ya puedes ingresar al sitio</p>`;
     document.getElementById("usuario").value = responsePayload.email;
     document.getElementById("pass").value = responsePayload.sub;
-    localStorage.setItem("imagen", responsePayload.picture);
  }

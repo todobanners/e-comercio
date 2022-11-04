@@ -46,7 +46,7 @@ let getJSONData = function(url){
 }
 
 // Si tengo guardado un usuario en localstorage muestro el nombre arriba, sino lo redirijo al login
-if (localStorage.getItem('usuario') != null) {
+if (localStorage.getItem('userEmail') != null) {
   //Si el user no tiene imagen muestro una por defecto
   if (localStorage.getItem('imagen') == null) {
     imagen = 'img/img_perfil.png';
@@ -55,7 +55,7 @@ if (localStorage.getItem('usuario') != null) {
   //Muestro el nombre e imagen en el menu
   document.querySelector('ul li:last-child').innerHTML = `
   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-  <img src="${imagen}" alt="" width="30" height="30"> ${localStorage.getItem('usuario')}
+  <img src="${imagen}" alt="" width="30" height="30"> ${localStorage.getItem('userEmail')}
 </a>
 <ul class="dropdown-menu ">
   <li><a class="dropdown-item" href="cart.html"><i class="fas fa-shopping-cart"></i> Mi carrito</a></li>
@@ -68,5 +68,5 @@ if (localStorage.getItem('usuario') != null) {
 
 // Borro del localStorage el usuario
 document.getElementById("nombreUsuario").addEventListener("click", function(){
-  localStorage.removeItem("usuario")
+  localStorage.removeItem("userEmail")
 })
