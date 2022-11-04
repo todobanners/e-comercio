@@ -34,7 +34,7 @@ nav a {
   margin-bottom: 0;
   background-color: #53C0FB;
   background: url('../img/cover_back.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   color: black;
@@ -43,8 +43,15 @@ nav a {
 
 @media (min-width: 768px) {
   .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .jumbotron {
+    background-size: 150%;
+    background-position: left;
   }
 }
 
