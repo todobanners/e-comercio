@@ -26,7 +26,7 @@ document.getElementById('inpArchivo').addEventListener('change', (e) => {
       // convierto a base64
       const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
       // Guardo la imagen
-      localStorage.setItem('userImagen', base64String);
+      localStorage.setItem('userImagen', "data:image/png;base64,"+base64String+"");
       // display image
       //document.body.style.background = `url(data:image/png;base64,${base64String})`;
     //   imagenPerfil.innerHTML = `<img src="url(data:image/png;base64,${ localStorage.getItem("userImagen")})">`;
@@ -34,7 +34,7 @@ document.getElementById('inpArchivo').addEventListener('change', (e) => {
     reader.readAsDataURL(file);
   });
   if (localStorage.getItem("userImagen")){
-  imagenPerfil.innerHTML = `<img class="img-fluid rounded-top" src="data:image/png;base64,${ localStorage.getItem("userImagen")}">`;
+  imagenPerfil.innerHTML = `<img class="img-fluid rounded-top" src="${localStorage.getItem("userImagen")}">`;
 }
 autoRelleno(inpPrimerNombre, localStorage.getItem("userPrimerNombre"));
 autoRelleno(inpSegundoNombre, localStorage.getItem("userSgundoNombre"));
