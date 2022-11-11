@@ -34,9 +34,9 @@ function mostrarInfo(){
     btnComprar.setAttribute("class","col-sm-4 col-lg-3")
 
     if (localCarrito.filter(obj => obj.id === datosProducto.id).length > 0 ){
-        btnComprar.innerHTML = `<a class="btn btn-danger" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Ya tienes el producto</a>`;
+        btnComprar.innerHTML = `<a class="btn btn-danger" role="button"><i class="fas fa-shopping-cart"></i> Ya tienes el producto</a>`;
     }else{
-        btnComprar.innerHTML = `<a onclick="comprar()" class="btn btn-success" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>`;
+        btnComprar.innerHTML = `<a onclick="comprar()" class="btn btn-success" role="button"><i class="fas fa-shopping-cart"></i> Agregar al carrito</a>`;
     }
     
     row.appendChild(btnComprar);
@@ -55,13 +55,11 @@ function mostrarInfo(){
 function comprar() {
     let articulo = {id: datosProducto.id, name: datosProducto.name, count: 1,unitCost: datosProducto.cost, currency: datosProducto.currency, image: datosProducto.images[0]};
     if (localCarrito.filter(obj => obj.id === datosProducto.id).length > 0 ){
-        console.log("El producto ya se encontraba en el carrito");
     }else{
         localCarrito.push(articulo);
         localStorage.setItem("carrito", JSON.stringify(localCarrito));
         btnComprar.innerHTML = "";
-        btnComprar.innerHTML = `<a class="btn btn-warning" href="#btnComprar" role="button"><i class="fas fa-shopping-cart"></i> Producto agregado!</a>`;
-        console.log("Producto agregado al carrito");
+        btnComprar.innerHTML = `<a class="btn btn-warning" role="button"><i class="fas fa-shopping-cart"></i> Producto agregado!</a>`;
     }
     
 }

@@ -13,7 +13,7 @@ let pagoBanco = document.getElementById("banco")
 let formulario = document.getElementById("formulario")
 
 //Genera la tabla con los elementos necesarios para el carrito
-function generarTabla() {
+function generarTabla(array) {
   var tabla = document.createElement("table");
   tabla.setAttribute("class", "table text-center mt-1 table-striped table-hover align-middle");
   tablaCarrito.appendChild(tabla);
@@ -24,7 +24,7 @@ function generarTabla() {
   var trCabecera = document.createElement("tr");
   thead.appendChild(trCabecera);
 
-  let titulosCabeceraTabla = ["", "Nombre", "Precio", "Cantidad", "Subtotal"];
+  let titulosCabeceraTabla = ["Imagen", "Nombre", "Precio", "Cantidad", "Subtotal", "Quitar"];
 
   for (let i = 0; i < titulosCabeceraTabla.length; i++) {
     const element = titulosCabeceraTabla[i];
@@ -36,7 +36,7 @@ function generarTabla() {
   tbody.setAttribute("class", "table-group-divider");
   tabla.appendChild(tbody);
 
-  carrito.forEach(dato => {
+  array.forEach(dato => {
     var trCuerpo = document.createElement("tr")
     tbody.appendChild(trCuerpo);
     var tdImg = document.createElement("td");
@@ -44,6 +44,7 @@ function generarTabla() {
     var tdCost = document.createElement("td");
     var tdCantidad = document.createElement("td");
     var tdSubTotal = document.createElement("td");
+    var tdBorrar = document.createElement("td");
     var divInput = document.createElement("div");
     var divColINput = document.createElement("div");
 
@@ -81,10 +82,18 @@ function generarTabla() {
     })
     tdSubTotal.dataset.costo = Number(document.getElementById("cantidad-" + dato.id).value) * conversion;
     trCuerpo.appendChild(tdSubTotal).innerHTML += "USD " + Number(document.getElementById("cantidad-" + dato.id).value) * conversion;
-
-
+    trCuerpo.appendChild(tdBorrar).innerHTML += `<button type="button" class="btn btn-danger" onclick="borrar(${dato.id})"><i class="fas fa-trash-alt"></i></button>`;
   });
+}
 
+function borrar(id){
+    for (var i =0; i < localCarrito.length; i++)
+        if (localCarrito[i].id == id) {
+          localCarrito.splice(i,1);
+          localStorage.setItem("carrito", JSON.stringify(localCarrito));
+        break;
+    }
+    location.reload();
 }
 //Hace la suma de cada elemento en el carrito
 function obtenerTotal() {
@@ -199,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (info.status === "ok") {
       carrito = info.data.articles;
       carrito = carrito.concat(localCarrito);
-      generarTabla();
+      generarTabla(carrito);
       mostrarCostos();
       // actualiza el costo a medida que se actualizan o cambian los datos
       divForm.addEventListener("input", function (a) {mostrarCostos()});
