@@ -38,7 +38,6 @@ autoRelleno(inpSegundoApellido, localStorage.getItem("userSegundoApellido"));
 autoRelleno(inpEmail, localStorage.getItem("userEmail"));
 autoRelleno(inpCelular, localStorage.getItem("userCel"));
 
-
 formulario.addEventListener("submit", function(event){
     if(!formulario.checkValidity()){
         event.preventDefault();
