@@ -11,11 +11,9 @@ let imagenPerfil = document.getElementById("imagenPerfil");
 function autoRelleno(input, valor){
     input.value = valor;
 }
-
 function guardarDato(dato, valor){
     localStorage.setItem(dato, valor.value)
 }
-
 document.getElementById('inpArchivo').addEventListener('change', (e) => {
     // Leo el input y guardo el archivo para ser leido
     const file = e.target.files[0];
@@ -27,9 +25,6 @@ document.getElementById('inpArchivo').addEventListener('change', (e) => {
       const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
       // Guardo la imagen
       localStorage.setItem('userImagen', "data:image/png;base64,"+base64String+"");
-      // display image
-      //document.body.style.background = `url(data:image/png;base64,${base64String})`;
-    //   imagenPerfil.innerHTML = `<img src="url(data:image/png;base64,${ localStorage.getItem("userImagen")})">`;
     };
     reader.readAsDataURL(file);
   });
@@ -42,7 +37,6 @@ autoRelleno(inpPrimerApellido, localStorage.getItem("userPrimerApellido"));
 autoRelleno(inpSegundoApellido, localStorage.getItem("userSegundoApellido"));
 autoRelleno(inpEmail, localStorage.getItem("userEmail"));
 autoRelleno(inpCelular, localStorage.getItem("userCel"));
-
 
 
 formulario.addEventListener("submit", function(event){
