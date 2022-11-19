@@ -151,11 +151,11 @@ Array.from(forms).forEach(form => {
     } else {
       event.preventDefault() // Se agrega para evitar que se recargue la pagina y se pierda el mensaje.
       alert('Sus pedidos seran enviados segun lo seleccionado, gracias por comprar en e-mercado', 'success')
-      fetch("https://ecomerciojap.onrender.com/compra", {
-        mode: 'no-cors',
+      fetch("https://3000-cs-4d800d78-fa9c-40b3-b3a0-eb3052baf86e.cs-us-east1-vpcf.cloudshell.dev/compra", {
     method: 'POST',
     headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
     },
     body: JSON.stringify({
         "calle": document.getElementById("calle").value,
