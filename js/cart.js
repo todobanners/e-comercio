@@ -152,6 +152,7 @@ Array.from(forms).forEach(form => {
       event.preventDefault() // Se agrega para evitar que se recargue la pagina y se pierda el mensaje.
       alert('Sus pedidos seran enviados segun lo seleccionado, gracias por comprar en e-mercado', 'success')
       fetch("https://ecomerciojap.onrender.com/compra", {
+        mode: 'no-cors',
     method: 'POST',
     headers: {
         "Content-Type": "application/json; charset=utf-8"
