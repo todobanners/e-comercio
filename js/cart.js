@@ -151,6 +151,21 @@ Array.from(forms).forEach(form => {
     } else {
       event.preventDefault() // Se agrega para evitar que se recargue la pagina y se pierda el mensaje.
       alert('Sus pedidos seran enviados segun lo seleccionado, gracias por comprar en e-mercado', 'success')
+      fetch("https://ecomerciojap.onrender.com/compra", {
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+        "calle": document.getElementById("calle").value,
+        "esquina": document.getElementById("esquina").value,
+        "numero": document.getElementById("numero").value
+    })
+})
+.then(respuesta => respuesta.json())
+.then(datos => {
+    console.log(datos);
+});
     }
 
     form.classList.add('was-validated')

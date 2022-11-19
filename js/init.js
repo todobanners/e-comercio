@@ -3,14 +3,16 @@ let productID = localStorage.getItem('productID');
 //Obtengo numero de categoria del localstorage
 let numCategory = localStorage.getItem("catID");
 
+// https://japceibal.github.io/emercado-api
+
 const EXT_TYPE = ".json";
-const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/"+ numCategory + EXT_TYPE;
-const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/"+ productID + EXT_TYPE;
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/"+ productID + EXT_TYPE;
-const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/25801"+EXT_TYPE;
-const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
+const CATEGORIES_URL = "https://ecomerciojap.onrender.com/cats/cat.json";
+const PUBLISH_PRODUCT_URL = "https://ecomerciojap.onrender.com/sell/publish.json";
+const PRODUCTS_URL = "https://ecomerciojap.onrender.com/cats_products/"+ numCategory + EXT_TYPE;
+const PRODUCT_INFO_URL = "https://ecomerciojap.onrender.com/products/"+ productID + EXT_TYPE;
+const PRODUCT_INFO_COMMENTS_URL = "https://ecomerciojap.onrender.com/products_comments/"+ productID + EXT_TYPE;
+const CART_INFO_URL = "https://ecomerciojap.onrender.com/user_cart/25801"+EXT_TYPE;
+const CART_BUY_URL = "https://ecomerciojap.onrender.com/cart/buy.json";
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
